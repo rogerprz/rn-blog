@@ -2,12 +2,14 @@ import React, { useContext } from 'react';
 import { StyleSheet, Text, View, FlatList, Button, TouchableOpacity } from 'react-native';
 import { Context } from '../context/BlogContext';
 
-const ShowScreen = () => {
-  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
-
+const ShowScreen = ({ navigation }) => {
+  const { state } = useContext(Context);
+  const blogPost = state.find((blogPost) => blogPost.id === navigation.getParam('id'));
+  navigation.getParam('id');
+  console.log(id);
   return (
     <View>
-      <Text>Show Screen</Text>
+      <Text>{blogPost.title}</Text>
     </View>
   );
 };
