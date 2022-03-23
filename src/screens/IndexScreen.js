@@ -3,13 +3,12 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import BlogContext from '../context/BlogContext';
 
 const IndexScreen = () => {
-  const blogPosts = useContext(BlogContext);
-
+  const { data, addBlogPost } = useContext(BlogContext);
   return (
     <View>
       <Text>Index Screen</Text>
       <FlatList
-        data={blogPosts}
+        data={data}
         keyExtractor={(blogPost) => blogPost.id}
         renderItem={({ item }) => {
           return (
