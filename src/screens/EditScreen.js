@@ -1,28 +1,22 @@
-import React, { useContext } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { Context } from '../context/BlogContext';
 
 const EditScreen = ({ navigation }) => {
   const { state } = useContext(Context);
   const blogPost = state.find((blogPost) => blogPost.id === navigation.getParam('id'));
+  const [title, setTitle] = useState(blogPost.title);
+  const [content, setContent] = useState(blogPost.content);
 
   return (
     <View>
-      <Text>{blogPost.title}</Text>
-      <Text>{blogPost.content}</Text>
+      <TextInput value={title} onChangeText={(newTitle) => setTitle(newTitle)} />
+      <TextInput value={content} onChangeText={(newContent) => setTitle(newContent)} />
+      <Text>Edit Screen - {navigation.getParam('id')}</Text>
     </View>
   );
 };
 
-EditScreen.navigationOptions = ({ navigation }) => {
-  return {
-    headerRight: () => (
-      <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
-        <EvilIcons name="pencil" size={35} />
-      </TouchableOpacity>
-    )
-  };
-};
 const styles = StyleSheet.create({});
 
 export default EditScreen;
