@@ -37,4 +37,6 @@ const randomId = () => {
   return Math.floor(Math.random() * 100000);
 };
 
-export const { Context, Provider } = createDataContext(blogReducer, { addBlogPost, deleteBlogPost }, []);
+export const { Context, Provider } = createDataContext(blogReducer, { addBlogPost, deleteBlogPost }, [
+  { id: 1, title: 'Blog Post 1', content: 'Content 1' }
+]);
