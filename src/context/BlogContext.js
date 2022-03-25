@@ -13,7 +13,7 @@ const blogReducer = (state, action) => {
       return [
         ...state,
         {
-          id: action.payload.id,
+          id: randomId(),
           title: action.payload.title,
           content: action.payload.content
         }
@@ -27,7 +27,7 @@ const blogReducer = (state, action) => {
 
 const getBlogPosts = (dispatch) => {
   return async () => {
-    const response = await jsonServer.get('/blog-posts');
+    const response = await jsonServer.get('/blogposts');
 
     dispatch({ type: 'GET_BLOG_POSTS', payload: response.data });
   };
@@ -35,18 +35,9 @@ const getBlogPosts = (dispatch) => {
 
 const addBlogPost = (dispatch) => {
   // add async after return when attempting to make api call
-  return (title, content, callback) => {
-    //   try catch statement to handle error
-    // try {
-    //     away axios.post('text', title, content)
-    //     dispatch({ type: 'ADD_BLOG_POST', payload: { title, content } });
-    //     if (callback) {
-    //         callback();
-    //         }
-    // } catch (error) {
-    //     console.log(error);
+  return async (title, content, callback) => {
+    await jsonServer.post('/blogposts', { title, content });
 
-    // }
     dispatch({ type: 'ADD_BLOG_POST', payload: { title, content } });
     if (callback) {
       callback();
@@ -79,7 +70,8 @@ export const { Context, Provider } = createDataContext(
   {
     addBlogPost,
     deleteBlogPost,
-    editBlogPost
+    editBlogPost,
+    getBlogPosts
   },
-  [{ title: 'TEST POST', content: 'TEST CONTENT', id: randomId() }]
+  []
 );
