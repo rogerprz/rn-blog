@@ -9,15 +9,6 @@ const blogReducer = (state, action) => {
       return state.map((blogPost) => {
         return blogPost.id === action.payload.id ? action.payload : blogPost;
       });
-    case 'ADD_BLOG_POST':
-      return [
-        ...state,
-        {
-          id: randomId(),
-          title: action.payload.title,
-          content: action.payload.content
-        }
-      ];
     case 'DELETE_BLOG_POST':
       return state.filter((blogPost) => blogPost.id !== action.payload);
     default:
@@ -37,8 +28,8 @@ const addBlogPost = (dispatch) => {
   // add async after return when attempting to make api call
   return async (title, content, callback) => {
     await jsonServer.post('/blogposts', { title, content });
-
-    dispatch({ type: 'ADD_BLOG_POST', payload: { title, content } });
+    // No longer need dispatch since we are fetching data from the api
+    // dispatch({ type: 'ADD_BLOG_POST', payload: { title, content } });
     if (callback) {
       callback();
     }
