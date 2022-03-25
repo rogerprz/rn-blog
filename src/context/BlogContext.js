@@ -69,5 +69,5 @@ export const { Context, Provider } = createDataContext(
     deleteBlogPost,
     editBlogPost
   },
-  [{ title: 'TEST POST', content: 'TEST CONTENT', id: 1 }]
+  [{ title: 'TEST POST', content: 'TEST CONTENT', id: randomId() }]
 );
